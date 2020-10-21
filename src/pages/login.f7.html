@@ -1,0 +1,102 @@
+<template>
+<div class="page" data-name="about">
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="if-not-md">Back</span>
+        </a>
+      </div>
+      <div class="title">로그인</div>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="block-title">정보를 입력해주세요</div>
+    <div class="list no-hairlines-md">
+      <ul>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">E-mail</div>
+              <div class="item-input-wrap">
+                <input type="email" placeholder="test@test.com" name="email" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">비밀번호</div>
+              <div class="item-input-wrap">
+                <input type="password" placeholder="비밀번호를 입력해주세요" name="password" />
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="block block-strong">
+      <p class="row">
+        <a href="#" class="col button button-fill" @click="login">로그인</a>
+      </p>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+export default {
+  methods: {
+    login() {
+	  var self = this;
+	  var app = self.$app;
+	  
+	  var email = $('input[name="email"]');
+	  var password = $('input[name="password"]');
+  
+	  if ( !email.val() ) {
+		app.dialog.alert('이메일을 입력해주세요');
+		email.focus();
+		return false;
+	  }
+	  
+	  if ( !password.val() ) {
+		app.dialog.alert('비밀번호를 입력해주세요');
+		password.focus();
+		return false;
+	  }
+	  
+	  app.preloader.show();
+	  
+	  firebase.auth().signInWithEmailAndPassword(email.val(), password.val())
+	  .then(function(result) { //성공했을때
+		app.preloader.hide();
+		app.dialog.alert('로그인되었습니다');
+		email.val('');
+		password.val('');
+		console.log(result);
+	  })
+	  .catch(function(error) { //오류났을때
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		
+		app.preloader.hide();
+		console.log(errorCode, errorMessage);	
+
+		if (errorCode == 'auth/user-not-found') {
+			app.dialog.alert('이메일을 확인하세요.');
+			email.focus();
+		}
+		
+		if (errorCode == 'auth/wrong-password') {
+			app.dialog.alert('비밀번호를 확인하세요');
+			email.focus();
+		}
+	  })
+	}
+  }
+};
+</script>

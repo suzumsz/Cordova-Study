@@ -1,0 +1,168 @@
+<template>
+<div class="page" data-name="about">
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="if-not-md">Back</span>
+        </a>
+      </div>
+      <div class="title">회원가입</div>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="block-title">정보를 입력해주세요</div>
+    <div class="list no-hairlines-md">
+      <ul>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">이름</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="이름을 입력해주세요" name="name" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">전화번호</div>
+              <div class="item-input-wrap">
+                <input type="tel" placeholder="010-1234-5678" name="phone" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">E-mail</div>
+              <div class="item-input-wrap">
+                <input type="email" placeholder="test@test.com" name="email" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">비밀번호</div>
+              <div class="item-input-wrap">
+                <input type="password" placeholder="비밀번호를 입력해주세요" name="password" />
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">비밀번호 확인</div>
+              <div class="item-input-wrap">
+                <input type="password" placeholder="비밀번호 확인을 입력해주세요" name="password_confirm" />
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="block block-strong">
+      <p class="row">
+        <a href="#" class="col button button-fill" @click="register">가입하기</a>
+      </p>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+export default {
+  methods: {
+    register() {
+	  var self = this;
+	  var app = self.$app;
+	  
+	  var name = $('input[name="name"]');
+	  var phone = $('input[name="phone"]');
+	  var email = $('input[name="email"]');
+	  var password = $('input[name="password"]');
+	  var passwordConfirm = $('input[name="password_confirm"]');
+	  	  
+	  if ( !name.val() ) {
+		app.dialog.alert('이름을 입력해주세요');
+		name.focus();
+		return false;
+	  }
+	  
+	  if ( !phone.val() ) {
+		app.dialog.alert('전화번호를 입력해주세요');
+		phone.focus();
+		return false;
+	  }
+	  
+	  if ( !email.val() ) {
+		app.dialog.alert('이메일을 입력해주세요');
+		email.focus();
+		return false;
+	  }
+	  
+	  if ( !password.val() ) {
+		app.dialog.alert('비밀번호를 입력해주세요');
+		password.focus();
+		return false;
+	  }
+	  
+	  if ( password.val().length < 6 ) {
+		app.dialog.alert('비밀번호는 6글자이상 입력해주세요');
+		password.focus();
+		return false;
+	  }
+	  
+	  if ( !passwordConfirm.val() ) {
+		app.dialog.alert('비밀번호 확인을 입력해주세요');
+		passwordConfirm.focus();
+		return false;
+	  }
+	  
+	  if ( password.val() != passwordConfirm.val() ) {
+		app.dialog.alert('비밀번호와 비밀번호 확인이 다릅니다');
+		password.focus();
+		return false;
+	  }
+	  
+	  app.preloader.show();
+	  
+	  firebase.auth().createUserWithEmailAndPassword(email.val(), password.val())
+	  .then(function(result) { //성공했을때
+		app.preloader.hide();
+		app.dialog.alert('가입되었습니다');
+		name.val('');
+		phone.val('');
+		email.val('');
+		password.val('');
+		passwordConfirm.val('');
+		console.log(result);
+	  })
+	  .catch(function(error) { //오류났을때
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		
+		app.preloader.hide();
+		console.log(errorCode, errorMessage);	
+
+		if (errorCode == 'auth/weak-password Password') {
+			app.dialog.alert('비밀번호는 6글자이상 입력해주세요');
+			password.focus();
+		}
+		
+		if (errorCode == 'auth/email-already-in-use') {
+			app.dialog.alert('이미 등록된 이메일주소입니다');
+			email.focus();
+		}
+	  })
+	}
+  }
+};
+</script>

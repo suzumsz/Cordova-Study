@@ -1,0 +1,105 @@
+<template>
+<div class="page" data-name="about">
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="if-not-md">Back</span>
+        </a>
+      </div>
+      <div class="title">객실 예약</div>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="block-title">정보를 입력해주세요</div>
+    <div class="list no-hairlines-md">
+      <ul>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">예약날짜</div>
+              <div class="item-input-wrap">
+                <input type="date" placeholder="예약날짜" value="2020-09-03"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">객실</div>
+              <div class="item-input-wrap">
+                <select>
+                  <option>101호</option>
+                  <option>102호</option>
+                  <option>201호</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">이름</div>
+              <div class="item-input-wrap">
+                <input type="text" placeholder="이름을 입력해주세요"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">전화번호</div>
+              <div class="item-input-wrap">
+                <input type="tel" placeholder="010-1234-5678"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">E-mail</div>
+              <div class="item-input-wrap">
+                <input type="email" placeholder="test@test.com"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">예약수정/취소 비밀번호</div>
+              <div class="item-input-wrap">
+                <input type="password" placeholder="비밀번호를 입력해주세요"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="align-top">
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">남기실 말씀</div>
+              <div class="item-input-wrap">
+                <textarea placeholder="기타 특이사항을 입력해주세요"></textarea>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="block block-strong">
+      <p class="row">
+        <a href="#" class="col button button-fill">예약하기</a>
+      </p>
+    </div>
+  </div>
+</div>
+</template>
+<script>
+export default {};
+</script>

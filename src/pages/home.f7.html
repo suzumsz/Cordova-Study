@@ -1,0 +1,116 @@
+<template>
+  <div class="page" data-name="home">
+    <!-- Top Navbar -->
+    <div class="navbar navbar-large">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner">
+        <div class="left">
+          <a href="#" class="link icon-only panel-open" data-panel="left">
+            <i class="icon f7-icons if-not-md">menu</i>
+            <i class="icon material-icons if-md">menu</i>
+          </a>
+        </div>
+        <div class="title sliding">길동이네 팬션</div>
+        <div class="title-large">
+          <div class="title-large-text">길동이네 팬션</div>
+        </div>
+      </div>
+    </div>
+    <!-- Toolbar-->
+    <div class="toolbar toolbar-bottom">
+      <div class="toolbar-inner">
+        <a href="#" class="link">예약 안내상황</a>
+        <a href="#" class="link">객실이용 안내문</a>
+      </div>
+    </div>
+    <!-- Scrollable page content-->
+    <div class="page-content">
+      <div class="block block-strong">
+        <p>
+          <img src="/static/images/main.jpg" width="100%">
+        </p>
+        <p>
+          안녕하세요 안면도 휴양림 인근에 위치한 <strong>길동이네 팬션</strong> 입니다.<br>
+          시골집에 머무르는듯한 편안함을 드리기 위해 자연적인 객실 인테리어와 깨끗함에 신경을 썼습니다.<br>
+          안면도 자연휴양림 도보 5분거리,꽃지해수욕장 차량으로 5분거리 위치해있습니다.<br>
+          민트네 펜션에서 소나무길을 걸으며 몸과 마음이 건강해지는 산림욕을 즐겨 보십시오.
+        </p>
+      </div>
+      <div class="block-title">Navigation</div>
+      <div class="list">
+        <ul>
+		  {{#if user}}
+		  <li>
+            <a href="#" class="item-content item-link" @click="logout">
+              <div class="item-inner">
+                <div class="item-title">로그아웃</div>
+              </div>
+            </a>
+          </li>
+		  {{else}}
+		  <li>
+            <a href="/login/" class="item-content item-link">
+              <div class="item-inner">
+                <div class="item-title">로그인</div>
+              </div>
+            </a>
+          </li>
+		  <li>
+            <a href="/register/" class="item-content item-link">
+              <div class="item-inner">
+                <div class="item-title">회원가입</div>
+              </div>
+            </a>
+          </li>
+		  {{/if}}
+          <li>
+            <a href="/gallery/" class="item-content item-link">
+              <div class="item-inner">
+                <div class="item-title">갤러리</div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/reservation/" class="item-content item-link">
+              <div class="item-inner">
+                <div class="item-title">예약하기</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+	  user: null,
+	}
+  },
+  methods: { //클릭했을 때 수행하는 것은 메소드에서 수행
+    logout() {
+	  firebase.auth().signOut();
+	}
+  },
+  on: {
+    pageInit: function(e, page) {
+	  var self = this;
+	  var app = self.$app;
+	  
+	  firebase.auth().onAuthStateChanged(function(user) {
+	    if (user) {
+		  self.$setState({
+		    user: user,
+		  });
+		} else {
+		  self.$setState({
+		    user: null,
+		  });
+		}
+	  });
+	}
+  }
+}
+</script>
