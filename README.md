@@ -1,51 +1,5 @@
-# example
-
-## Framework7 CLI Options
-
-Framework7 app created with following options:
-
-```
-{
-  "cwd": "C:\\2020-02-embedded-software\\example",
-  "type": [
-    "cordova",
-    "web"
-  ],
-  "name": "example",
-  "framework": "core",
-  "template": "single-view",
-  "bundler": "webpack",
-  "cssPreProcessor": false,
-  "theming": {
-    "customColor": false,
-    "color": "#007aff",
-    "darkTheme": false,
-    "iconFonts": true,
-    "fillBars": false
-  },
-  "customBuild": false,
-  "webpack": {
-    "developmentSourceMap": true,
-    "productionSourceMap": true,
-    "hashAssets": false,
-    "preserveAssetsPaths": false,
-    "inlineAssets": true
-  },
-  "pkg": "io.framework7.myapp",
-  "cordova": {
-    "folder": "cordova",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "plugins": [
-      "cordova-plugin-statusbar",
-      "cordova-plugin-keyboard",
-      "cordova-plugin-splashscreen"
-    ]
-  }
-}
-```
+# PensionReservationManagementSystem
+## 펜션 예약 관리 시스템
 
 ## NPM Scripts
 
